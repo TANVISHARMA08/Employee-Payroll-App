@@ -1,25 +1,21 @@
 class EmployeePayroll {
 
-    constructor(...params) {
-        this.name = params[0];
-        this.picture = params[1];
-        this.gender = params[2];
-        this.department = params[3];
-        this.salary = params[4];
-        this.startDate = params[5];
-        this.notes = params[6];
+    get id() {
+        return this._id;
+    }
+    set id(id) {
+        this._id = id;
     }
 
     get name() {
         return this._name;
     }
-
     set name(name) {
         let nameRegex = /[A-Z][a-z]{2,}/;
         if (nameRegex.test(name))
             this._name = name;
         else
-            throw "Invalid name";
+            throw "Invalid Name";
     }
 
     get picture() {
@@ -58,7 +54,11 @@ class EmployeePayroll {
     }
 
     set startDate(startDate) {
-        this._startDate = startDate;
+        if (startDate <= new Date()) {
+            this._startDate = startDate + 1;
+        } else {
+            throw "Invalid date";
+        }
     }
 
     get notes() {
@@ -67,5 +67,9 @@ class EmployeePayroll {
 
     set notes(notes) {
         this._notes = notes;
+    }
+
+    toString() {
+        return "id = " + this.id + ", name = " + this.name + ", gender = " + this.gender + ", profile picture = " + this.picture + ", department = " + this.department + ", salary = " + this.salary + ", startDate = " + this.startDate + ", note = " + this.notes;
     }
 }
